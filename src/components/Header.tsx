@@ -1,4 +1,10 @@
-const Header = () => {
+type HeaderProps = {
+  onFiltrar: (categoria: string) => void
+  onPesquisar: (termo: string) => void
+  onOrdenar: (criterio: string) => void
+}
+
+const Header = ({ onFiltrar, onPesquisar, onOrdenar }: HeaderProps) => {
   return (
     <header className="flex justify-between items-center py-4 px-15 border-b border-slate-200">
       <div className="flex items-center gap-2">
@@ -16,12 +22,12 @@ const Header = () => {
                     focus:ring-[var(--color-azul)] 
                     focus:border-[var(--color-azul)] 
                     transition-all"
-          //   onKeyUp={pesquisarProdutos(event.target.value)}
+          onKeyUp={(event) => onPesquisar(event.currentTarget.value)}
         />
       </div>
       <div className="flex items-center gap-4">
         <div className="flex items-center gap-6 text-sm font-medium">
-          <select className="cursor-pointer" /*onChange={filtrarCategorias(event.target.value)}*/>
+          <select className="cursor-pointer" onChange={(event) => onFiltrar(event.target.value)}>
             <option selected disabled>
               Categorias
             </option>
@@ -31,7 +37,7 @@ const Header = () => {
             <option>electronics</option>
             <option>women's clothing</option>
           </select>
-          <select className="cursor-pointer" /*onChange={ordenarProdutos(event.target.value)}*/>
+          <select className="cursor-pointer" onChange={(event) => onOrdenar(event.target.value)}>
             <option selected disabled>
               Ordenar por
             </option>
